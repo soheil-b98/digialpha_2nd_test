@@ -1,0 +1,8 @@
+PS C:\laravel\test> php artisan passport:install
+Encryption keys generated successfully.
+Personal access client created successfully.
+Client ID: 1
+Client secret: TMi3DsM2SUkyMU4bLZgazogusOmuwl0iCiuSdwwq
+Password grant client created successfully.
+Client ID: 2
+Client secret: cqz7Hz35MvDUw3kbm6EQa7XHZSF3FXJKaYBpje0k
