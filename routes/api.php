@@ -23,7 +23,7 @@ Route::group(['prefix'=>'auth'],function (){
     Route::get('logout',[AuthController::class,'logout'])->middleware('auth:api');
 });
 
-Route::middleware(['auth:api','scopes:user'])->group(function (){
+Route::middleware(['auth:api','scopes:manager'])->group(function (){
     Route::get('/user',[UserController::class,'getAllUSer'])->name('getAllUser');
     Route::get('/user',[UserController::class,'getUSer'])->name('getUser');
     Route::put('user/changeCardStatus',[UserController::class,'changeCardStatus'])->name('changeCardStatus');

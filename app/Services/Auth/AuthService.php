@@ -30,7 +30,7 @@ class AuthService
                 'message' => 'Unauthorized'
             ]);
         $user = $request->user();
-        $tokenResult = $user->createToken('user_token',['user'] );
+        $tokenResult = $user->createToken('user_token',[$user->level] );
         $token = $tokenResult->token;
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
