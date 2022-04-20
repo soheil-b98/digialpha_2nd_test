@@ -29,6 +29,7 @@ class CardController extends Controller
     public function store(StoreCardRequest $request)
     {
         $card = $this->cardService->store($request->validated());
+        // توی نگاه اول بعنوان دولوپر بعدی نمیفهمم ایندکس صفر چیه !
         if ($card[0]){
             return $this->success('add card successful !',$card[1],$card[2]);
         }

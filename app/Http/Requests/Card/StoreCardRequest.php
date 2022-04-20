@@ -24,9 +24,9 @@ class StoreCardRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:App\Models\User,id',
-            'card_number' => 'required',
-            'sheba_number' => 'required'
+            'user_id' => 'required|exists:App\Models\User,id', // exists:users,id
+            'card_number' => 'required',  // check card_number is unique ?
+            'sheba_number' => 'required' // check sheba_number is unique ?
         ];
     }
 }

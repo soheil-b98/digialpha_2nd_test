@@ -25,7 +25,7 @@ class ChangeStatusRequest extends FormRequest
     {
         return [
             'status' => 'required',
-            'card_id' => 'required'
+            'card_id' => 'required' // check card exists or ... ?
         ];
     }
 }

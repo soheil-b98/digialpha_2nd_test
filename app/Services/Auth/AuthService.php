@@ -24,6 +24,7 @@ class AuthService
 
     public function login($request)
     {
+        // get request as array [email => ..., password => ... !!!
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return ([
@@ -39,13 +40,14 @@ class AuthService
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString(),
-            'user' => Auth::user()
+            'user' => Auth::user() // auth()->user faster way
         ]);
     }
 
     public function logout($request)
     {
         $request->user()->token()->revoke();
+        // use try catch & handle with true false  (error handling)
     }
 
 }

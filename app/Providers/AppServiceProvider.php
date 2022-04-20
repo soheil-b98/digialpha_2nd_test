@@ -25,8 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserService::class);
         $this->app->bind(ResponseTrait::class);
-
-
+        // use Separated Provider (RepositoryServiceRepository)
     }
 
     /**

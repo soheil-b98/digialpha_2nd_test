@@ -25,8 +25,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|exists:App\Models\User,email',
-            'password' => 'required|string',
+            'email' => 'required|string|email|exists:App\Models\User,email', // exists:users,email
+            'password' => 'required|string', // check min & max
             'remember_me' => 'boolean'
         ];
     }

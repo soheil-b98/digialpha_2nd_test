@@ -22,7 +22,7 @@ class UserController extends Controller
      *
      * @return JsonResponse [json] user object + user's cards
      */
-    public function getAllUSer()
+    public function getAllUSer() // function name => index or userIndex
     {
         return $this->success('users profile',200,$this->userService->getAllUser());
     }
@@ -32,7 +32,7 @@ class UserController extends Controller
      *
      * @return JsonResponse [json] user object + user's cards
      */
-    public function getUser(Request $request)
+    public function getUser(Request $request) // function name => profile
     {
         return $this->success('user profile',200,$this->userService->getUser($request));
     }
@@ -43,7 +43,7 @@ class UserController extends Controller
      * @param ChangeStatusRequest $request
      * @return JsonResponse [json] user object + user's cards
      */
-    public function changeCardStatus(ChangeStatusRequest $request)
+    public function changeCardStatus(ChangeStatusRequest $request) // CardController
     {
         $this->userService->changeStatus($request->validated());
         return $this->success('status changed successful!',200);

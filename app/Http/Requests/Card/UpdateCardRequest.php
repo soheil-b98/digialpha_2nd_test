@@ -24,8 +24,8 @@ class UpdateCardRequest extends FormRequest
     public function rules()
     {
         return [
-            'card_number' => 'required',
-            'sheba_number' => 'required'
+            'card_number' => 'required', // check card_number is unique ?
+            'sheba_number' => 'required' // check sheba_number is unique ?
         ];
     }
 }
