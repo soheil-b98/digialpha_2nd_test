@@ -40,7 +40,12 @@ class UserService implements ShouldQueue
         $user = $this->userRepository->getUserByCardID($request['card_id']);
         $card = $this->userRepository->update_verify($request['status'],$request['card_id']);
         if ($card){
-            dispatch(new SendEmailJob($user,$card,$text = ''));
+            $data = [
+                'text' => '',
+                'user' => collect($user)->toArray(),
+                'card' => collect($card)->toArray()
+            ];
+            dispatch(new SendEmailJob($user,$data));
         }
     }
 
@@ -48,7 +53,12 @@ class UserService implements ShouldQueue
     {
         $users = $this->userRepository->allUser();
         foreach ($users as $user){
-            dispatch(new SendEmailJob($user, null,'welcome to our community'));
+            $data = [
+                'text' => 'welcome to our community',
+                'user' => collect($user)->toArray(),
+                'card' => ''
+            ];
+            dispatch(new SendEmailJob($user,$data ));
         }
     }
 

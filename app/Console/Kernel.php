@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call('App\Services\User\UserService@sendEmailToAll')->everyMinute();
+        $schedule->call('App\Services\User\UserService@sendEmailToAll')->cron('*/1 * * * *');
+        // cron ( 'minute hour day(month) month day(week)' ) -- test your cron in https://crontab.guru
+
     }
 
     /**

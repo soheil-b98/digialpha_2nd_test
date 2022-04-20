@@ -62,7 +62,6 @@ class CardController extends Controller
      */
     public function update(UpdateCardRequest $request, $id)
     {
-        dd('s');
         $card = $this->cardService->update($request->validated(),$id);
         if ($card[0]){
             return $this->success('update card successful !',$card[1],$card[2]);

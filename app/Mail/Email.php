@@ -11,18 +11,16 @@ class Email extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $card,$user,$text;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user = null, $card = null, $text = null)
+    public function __construct($data = null)
     {
-        $this->user = $user;
-        $this->card = $card;
-        $this->text = $text;
+        $this->data = $data;
     }
 
     /**

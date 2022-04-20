@@ -92,29 +92,31 @@
     <table role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 30px 60px;">
         <tr>
             <td>
-                <h2>Hello dear &nbsp; {{ $user->name }}</h2>
-                <br>
-                <P>{{ $text }}</P>
-                <br>
+                @if($data)
+                    <h2>Hello dear &nbsp; {{ $data['user']['name'] }}</h2>
+                    <br>
+                    <P>{{ $data['text'] }}</P>
+                    <br>
 
-            @if($card)
-                @if($card->status == 'accepted')
-                    <p style="color: lawngreen"> One of your cards has been verified</p>
-                    <br>
-                    <h5>card details:</h5>
-                    <code>card number : {{ $card->card_number }}</code>
-                    <br/>
-                    <code>sheba number : {{ $card->sheba_number }}</code>
-                @elseif($card->status == 'rejected')
-                    <p style="color: red"> One of your cards has been rejected</p>
-                    <br>
-                    <h5>card details:</h5>
-                    <code>card number : {{ $card->card_number }}</code>
-                    <br/>
-                    <code>sheba number : {{ $card->sheba_number }}</code>
+                    @if($data['card'])
+                        @if($data['card']['status'] == 'accepted')
+                            <p style="color: lawngreen"> your cards has been verified</p>
+                            <br>
+                            <h5>card details:</h5>
+                            <code>card number : {{ $data['card']['card_number'] }}</code>
+                            <br/>
+                            <code>sheba number : {{ $data['card']['sheba_number'] }}</code>
+                        @elseif($data['card']['status'] == 'rejected')
+                            <p style="color: red"> your cards has been rejected</p>
+                            <br>
+                            <h5>card details:</h5>
+                            <code>card number : {{ $data['card']['card_number'] }}</code>
+                            <br/>
+                            <code>sheba number : {{ $data['card']['sheba_number'] }}</code>
+                        @endif
+                    @endif
                 @endif
-            @endif
-                </td>
+            </td>
         </tr>
     </table>
 
