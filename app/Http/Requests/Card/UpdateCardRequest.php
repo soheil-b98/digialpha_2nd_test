@@ -6,26 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCardRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+
     public function rules()
     {
+        $card_id = $this->route('card'); //get card_id parameter from URL
         return [
-            'card_number' => 'required', // check card_number is unique ?
-            'sheba_number' => 'required' // check sheba_number is unique ?
+            'card_number' => 'required|string|size:16|unique:cards,card_number,'.$card_id,
+            'sheba_number' => 'required|string|size:26|unique:cards,sheba_number,'.$card_id
         ];
     }
 }

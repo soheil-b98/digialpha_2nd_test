@@ -19,17 +19,17 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'auth'],function (){
     Route::post('login',[AuthController::class,'login']);
     Route::post('register',[AuthController::class,'register']);
-
     Route::get('logout',[AuthController::class,'logout'])->middleware('auth:api');
 });
 
+
 Route::middleware(['auth:api','scopes:manager'])->group(function (){
-    Route::get('/user',[UserController::class,'getAllUSer'])->name('getAllUser');
-    Route::get('/user',[UserController::class,'getUSer'])->name('getUser');
-    Route::put('user/changeCardStatus',[UserController::class,'changeCardStatus'])->name('changeCardStatus');
+    Route::get('/user',[UserController::class,'userIndex'])->name('userIndex');
+    Route::put('user/cardController',[UserController::class,'cardController'])->name('cardController');
 });
 
 
 Route::middleware(['auth:api','scopes:user'])->group(function (){
     Route::resource('/card',CardController::class)->only(['store','show','update','destroy']);
+    Route::get('/profile',[UserController::class,'profile'])->name('profile');
 });

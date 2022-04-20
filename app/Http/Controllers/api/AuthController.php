@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\auth\LoginRequest;
 use App\Http\Requests\auth\SignupRequest;
 use App\Services\Auth\AuthService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -18,43 +17,29 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    /**
-     * Create user
-     *
-     * @param SignupRequest $request
-     * @return JsonResponse [string] message
-     */
+
     public function register(SignupRequest $request)
     {
         if ($this->authService->registerUSer($request->validated())){
-            return $this->success('Successfully registered user!',200);
+            return $this->success('Successfully registered user!');
         }
-        return $this->success('Register user failed!',400);
+        return $this->fail('Register user failed!');
     }
 
-    /**
-     * Login user and create token
-     *
-     * @param LoginRequest $request
-     * @return JsonResponse [string] access_token
-     */
+
     public function login(LoginRequest $request)
     {
-        $response_data = $this->authService->login($request);
-        return $this->success('Successfully logged in',200,$response_data);
+        $response_data = $this->authService->login($request->validated());
+        return $this->success('Successfully logged in',$response_data);
     }
 
-    /**
-     * Logout user (Revoke the token)
-     *
-     * @param Request $request
-     * @return JsonResponse [string] message
-     */
+
     public function logout(Request $request)
     {
-        $this->authService->logout($request);
-        return $this->success('Successfully logged out',200);
+        if (is_string($this->authService->logout($request))){
+            return $this->fail('log out failed!');
+        }
+        return $this->success('Successfully logged out!');
     }
-
 
 }

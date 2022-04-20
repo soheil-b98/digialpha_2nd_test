@@ -32,12 +32,10 @@ class CardService
 
     public function destroy($id)
     {
+        if (is_string($error = $this->cardRepository->existsCard($id))){
+            return $error;
+        }
         return $this->cardRepository->destroy($id);
-    }
-
-    public function checkExistsCard($id)
-    {
-        return $this->cardRepository->existsCard($id);
     }
 
 }

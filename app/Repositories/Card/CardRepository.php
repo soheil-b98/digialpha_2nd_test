@@ -13,10 +13,10 @@ class CardRepository implements CardRepositoryInterface{
             DB::beginTransaction();
             $card = Card::create($request);
             DB::commit();
-            return [true,201,$card];
+            return $card;
         }catch (\Exception $exception){
             DB::rollBack();
-            return [false,400,$exception];
+            return $exception->getMessage();
         }
     }
 
@@ -26,10 +26,10 @@ class CardRepository implements CardRepositoryInterface{
             DB::beginTransaction();
             $card = Card::find($id);
             DB::commit();
-            return [true,200,$card];
+            return $card;
         }catch (\Exception $exception){
             DB::rollBack();
-            return [false,400,$exception];
+            return $exception->getMessage();
         }
     }
 
@@ -39,10 +39,10 @@ class CardRepository implements CardRepositoryInterface{
             DB::beginTransaction();
             $card = Card::where('id','=',$id)->update($request);
             DB::commit();
-            return [true,200,$card];
+            return $card;
         }catch (\Exception $exception){
             DB::rollBack();
-            return [false,400,$exception];
+            return $exception->getMessage();
         }
     }
 
@@ -50,12 +50,12 @@ class CardRepository implements CardRepositoryInterface{
     {
         try {
             DB::beginTransaction();
-            $card = Card::where('id','=',$id)->delete();
+            Card::where('id','=',$id)->delete();
             DB::commit();
-            return [true,200,$card];
+            return true;
         }catch (\Exception $exception){
             DB::rollBack();
-            return [false,400,$exception];
+            return $exception->getMessage();
         }
     }
 
@@ -64,7 +64,7 @@ class CardRepository implements CardRepositoryInterface{
         try {
             return Card::where('id','=',$id)->exists();
         }catch (\Exception $exception){
-            return false;
+            return $exception->getMessage();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace App\Traits\Response;
 
 trait ResponseTrait
 {
-    public function success($message, $status, $data = null)
+    public function success($message, $data = null, $status = 200)
     {
         $data = [
             'message'=>$message,
@@ -13,7 +13,7 @@ trait ResponseTrait
         return response()->json($data, $status);
     }
 
-    public function fail($message, $status, $error)
+    public function fail($message, $error = null, $status = 400)
     {
         return response()->json([
             'message'=>$message,

@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Card\StoreCardRequest;
 use App\Http\Requests\Card\UpdateCardRequest;
 use App\Services\Card\CardService;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CardController extends Controller
 {
@@ -20,74 +17,44 @@ class CardController extends Controller
         $this->cardService = $cardService;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreCardRequest $request
-     * @return JsonResponse
-     */
+
     public function store(StoreCardRequest $request)
     {
-        $card = $this->cardService->store($request->validated());
-        // توی نگاه اول بعنوان دولوپر بعدی نمیفهمم ایندکس صفر چیه !
-        if ($card[0]){
-            return $this->success('add card successful !',$card[1],$card[2]);
+        $cardOrError = $this->cardService->store($request->validated());
+        if (is_string($cardOrError)){
+            return $this->fail('add card failed !',$cardOrError);
         }
-        return $this->success('add card failed !',$card[1],$card[2]);
+        return $this->success('add card successful !',$cardOrError,201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return JsonResponse
-     */
+
     public function show(int $id)
     {
-        $card = $this->cardService->show($id);
-        if ($card[0]){
-            if ($card[2]){
-                return $this->success('card found !',$card[1],$card[2]);
-            }
-            return $this->success('card not found !',$card[1],$card[2]);
+        $cardOrError = $this->cardService->show($id);
+        if (is_string($cardOrError)){
+            return $this->fail('card not found!',$cardOrError);
         }
-        return $this->success('something got wrong, try later !',$card[1],$card[2]);
+        return $this->success('card found!',$cardOrError);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateCardRequest $request
-     * @param int $id
-     * @return JsonResponse
-     */
+
     public function update(UpdateCardRequest $request, $id)
     {
-        $card = $this->cardService->update($request->validated(),$id);
-        if ($card[0]){
-            return $this->success('update card successful !',$card[1],$card[2]);
+        $cardOrError = $this->cardService->update($request->validated(),$id);
+        if (is_string($cardOrError)){
+            return $this->fail('update card failed!',$cardOrError);
         }
-        return $this->success('update card failed! ',$card[1],$card[2]);
+        return $this->success('update card successful!',$cardOrError);
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return JsonResponse
-     */
+
     public function destroy($id)
     {
-        if ($this->cardService->checkExistsCard($id)){
-
-            $card = $this->cardService->destroy($id);
-            if ($card[0]){
-                return $this->success('delete card successful !',$card[1],$card[2]);
-            }
-            return $this->success('delete card failed! ',$card[1],$card[2]);
-
+        if (is_string($error = $this->cardService->destroy($id))){
+            return $this->fail('delete card failed!',$error);
         }
-        return $this->success('card not found !',404);
+        return $this->success('delete card successful!');
     }
 }
 
