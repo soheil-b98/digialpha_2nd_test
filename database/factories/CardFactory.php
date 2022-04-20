@@ -16,7 +16,7 @@ class CardFactory extends Factory
         $status = [
             'rejected',
             'accepted',
-            'not_checked'
+            'notChecked'
         ];
         return [
             'card_number' => $this->faker->unique()->creditCardNumber(),

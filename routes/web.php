@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\web\UserController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,17 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(\route('user.index'));
+    return view('welcome');
 });
-
-Route::get('/send_to_all',[UserController::class,'send_to_all'])->name('send_to_all');
-Route::get('/user/change_status/{status}/{card_id}',[UserController::class,'change_status'])->name('change_status');
-Route::resource('user',UserController::class)->middleware('auth');
-
-Route::get('/email',function (){
-    return view('email.email');
-});
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

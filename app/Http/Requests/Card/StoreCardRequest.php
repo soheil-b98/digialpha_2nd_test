@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\auth;
+namespace App\Http\Requests\Card;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class StoreCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,6 @@ class LoginRequest extends FormRequest
     public function authorize()
     {
         return true;
-
     }
 
     /**
@@ -25,9 +24,9 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|exists:App\Models\User,email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
+            'user_id' => 'required|exists:App\Models\User,id',
+            'card_number' => 'required',
+            'sheba_number' => 'required'
         ];
     }
 }

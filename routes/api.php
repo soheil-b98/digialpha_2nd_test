@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\CardController;
 use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,13 @@ Route::group(['prefix'=>'auth'],function (){
     Route::get('logout',[AuthController::class,'logout'])->middleware('auth:api');
 });
 
-Route::middleware(['auth:api','scopes:user'])->group(function (){
-    Route::get('/user',[UserController::class,'index'])->name('user.index');
-    Route::get('/user',[UserController::class,'show'])->name('user.show');
+Route::middleware(['auth:api','scopes:manager'])->group(function (){
+    Route::get('/user',[UserController::class,'getAllUSer'])->name('getAllUser');
+    Route::get('/user',[UserController::class,'getUSer'])->name('getUser');
     Route::put('user/changeCardStatus',[UserController::class,'changeCardStatus'])->name('changeCardStatus');
 });
 
+
+Route::middleware(['auth:api','scopes:user'])->group(function (){
+    Route::resource('/card',CardController::class)->only(['store','show','update','destroy']);
+});

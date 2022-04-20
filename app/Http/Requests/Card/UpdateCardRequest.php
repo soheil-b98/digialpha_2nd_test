@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Card;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeStatusRequest extends FormRequest
+class UpdateCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ChangeStatusRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,10 +24,8 @@ class ChangeStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required',
-            'card_id' => 'required'
-            // TODO how add enum check in rules
-
+            'card_number' => 'required',
+            'sheba_number' => 'required'
         ];
     }
 }

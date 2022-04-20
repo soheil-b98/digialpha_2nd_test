@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\auth;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class ChangeStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,6 @@ class LoginRequest extends FormRequest
     public function authorize()
     {
         return true;
-
     }
 
     /**
@@ -25,9 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|exists:App\Models\User,email',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
+            'status' => 'required',
+            'card_id' => 'required'
         ];
     }
 }

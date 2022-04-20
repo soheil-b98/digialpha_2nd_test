@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangeStatusRequest;
+use App\Http\Requests\User\ChangeStatusRequest;
 use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,9 +22,9 @@ class UserController extends Controller
      *
      * @return JsonResponse [json] user object + user's cards
      */
-    public function index()
+    public function getAllUSer()
     {
-        return $this->success('users profile',200,$this->userService->index());
+        return $this->success('users profile',200,$this->userService->getAllUser());
     }
 
     /**
@@ -32,9 +32,9 @@ class UserController extends Controller
      *
      * @return JsonResponse [json] user object + user's cards
      */
-    public function show(Request $request)
+    public function getUser(Request $request)
     {
-        return $this->success('user profile',200,$this->userService->show($request));
+        return $this->success('user profile',200,$this->userService->getUser($request));
     }
 
     /**

@@ -14,10 +14,16 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('card_number',16);
             $table->string('sheba_number',26);
-            $table->enum('status',['rejected','accepted','not_checked']);
+            $table->enum('status',['rejected','accepted','notChecked'])->default('notChecked');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['user_id','card_number']);
+            $table->unique(['user_id','sheba_number']);
+            $table->unique(['card_number','sheba_number']);
+
         });
+
     }
 
 

@@ -25,7 +25,6 @@ class SendEmailJob implements ShouldQueue
      */
     public function __construct($user,$card,$text)
     {
-
         $this->user = $user;
         $this->card = $card;
         $this->text = $text;
@@ -39,6 +38,5 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         Mail::to($this->user->email)->send(new Email($this->user,$this->card,$this->text));
-
     }
 }

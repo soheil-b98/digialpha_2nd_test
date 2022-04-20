@@ -19,7 +19,7 @@ class UserService implements ShouldQueue
         $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function getAllUser()
     {
         $users = $this->userRepository->allUser();
         foreach ($users as $user){
@@ -28,7 +28,7 @@ class UserService implements ShouldQueue
         return $users;
     }
 
-    public function show($request)
+    public function getUser($request)
     {
         $user = $request->user();
         $user->cards = Card::where('user_id','=',$user->id)->get();

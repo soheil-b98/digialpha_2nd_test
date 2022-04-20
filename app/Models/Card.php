@@ -15,10 +15,6 @@ class Card extends Model
         'sheba_number'
     ];
 
-    protected $casts = [
-        'is_verified' => 'boolean',
-    ];
-
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
